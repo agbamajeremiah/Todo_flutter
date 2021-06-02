@@ -141,7 +141,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                     },
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 15.0),
+                                    padding: const EdgeInsets.only(top: 50.0),
                                     child: ElevatedButton(
                                       child: Text('View Completed'),
                                       onPressed: () {
