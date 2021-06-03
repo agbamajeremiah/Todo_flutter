@@ -5,12 +5,9 @@ import 'package:stacked/stacked.dart';
 
 class CompletedTaskViewModel extends ReactiveViewModel {
   final FirebaseService _firebaseService = locator<FirebaseService>();
-  List<Task> get completedTask => _firebaseService.allTasks.where((task) => task.completed == true ).toList();
+  List<Task> get completedTask => _firebaseService.allTasks
+      .where((task) => task.completed == true)
+      .toList();
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_firebaseService];
-
-  Future<List> getAllTask() async {
-    List tasks = await _firebaseService.getAllTasks();
-    return tasks;
-  }
 }
