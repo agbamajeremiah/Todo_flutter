@@ -1,5 +1,5 @@
-import 'package:crud_firebase/ui/screens/completed_task_screen.dart';
-import 'package:crud_firebase/ui/screens/task_screen.dart';
+import 'package:crud_firebase/ui/screens/section_two/completed_task_screen.dart';
+import 'package:crud_firebase/ui/screens/section_two/task_screen.dart';
 import 'package:flutter/material.dart';
 import 'locator.dart';
 
