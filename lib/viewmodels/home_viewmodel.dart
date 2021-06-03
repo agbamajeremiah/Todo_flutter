@@ -27,7 +27,6 @@ class HomeViewModel extends BaseViewModel {
 
   Future<void> getAllSavedWeatherData() async {
     allWeatherData = weatherBox.values.toList();
-    print("Rebuild");
     notifyListeners();
   }
 
