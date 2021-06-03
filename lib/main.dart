@@ -1,12 +1,14 @@
 import 'package:crud_firebase/models/current.dart';
 import 'package:crud_firebase/models/location.dart';
 import 'package:crud_firebase/models/weather.dart';
+import 'package:crud_firebase/ui/router.dart';
 import 'package:crud_firebase/ui/screens/section_one/home_screen.dart';
 import 'package:crud_firebase/ui/screens/section_two/completed_task_screen.dart';
 import 'package:crud_firebase/ui/screens/section_two/task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'constants/routes.dart';
 import 'locator.dart';
 
 void main() async {
@@ -29,12 +31,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (ctx) => HomeScreen(),
-        '/task': (ctx) => TaskScreen(),
-        '/completed_task': (ctx) => CompletedTaskScreen(),
-      },
+       initialRoute: Routes.homeViewRoute,
+      onGenerateRoute: generateRoute,
     );
   }
 }

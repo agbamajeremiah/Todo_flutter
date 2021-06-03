@@ -1,3 +1,4 @@
+import 'package:crud_firebase/constants/routes.dart';
 import 'package:crud_firebase/models/task.dart';
 import 'package:crud_firebase/viewmodels/task_home_viewmodel.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -146,7 +147,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                       child: Text('View Completed'),
                                       onPressed: () {
                                         Navigator.pushNamed(
-                                            context, '/completed_task');
+                                            context, Routes.completedTaskViewRoute);
                                       },
                                       style: ElevatedButton.styleFrom(
                                           primary: Colors.brown,

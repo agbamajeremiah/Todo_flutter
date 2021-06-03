@@ -1,56 +1,53 @@
 import 'package:crud_firebase/constants/api_constant.dart';
 import 'package:crud_firebase/models/weather.dart';
 import 'package:crud_firebase/utils/api_request.dart';
-import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeViewModel extends BaseViewModel {
   var weatherBox;
-  List<String> cities = ['New york', 'London','Istanbul', 'Lagos', 'Paris', 'Berlin', 'Accra',  ]; //'Paris', 'Berlin''London','Istanbul',
+  List<String> cities = [
+    'New york',
+    'London',
+    'Istanbul',
+    'Lagos',
+    'Abuja',
+    'Madrid',
+    'Calabar',
+    'Paris',
+    'Berlin',
+    'Accra',
+  ];
   List<Weather> allWeatherData = [];
   void initialise() async {
-     weatherBox = await Hive.openBox<Weather>('weatherBox');
-    print("this");
-    //  await getCurrentWeather(cities[0]);
+    weatherBox = await Hive.openBox<Weather>('weatherBox');
+    await getAllSavedWeatherData();
     await getAllCitiesCurrentWeather();
   }
 
+  Future<void> getAllSavedWeatherData() async {
+    allWeatherData = weatherBox.values.toList();
+    print("Rebuild");
+    notifyListeners();
+  }
+
   Future getAllCitiesCurrentWeather() async {
-    if(weatherBox == null){
-     weatherBox = await Hive.openBox<Weather>('weatherBox');
-
+    if (weatherBox == null) {
+      weatherBox = await Hive.openBox<Weather>('weatherBox');
     }
-
-    print("yeah!");
     for (int i = 0; i < cities.length; i++) {
       Map<String, dynamic> queryParam = {
         'access_key': API_ACCESS_KEY,
         'query': cities[i]
       };
-      final Response response =
+      final response =
           await getResquest(url: 'current', queryParam: queryParam);
-      if (response.statusCode == 200) {
+      if (response?.statusCode == 200) {
         final Weather singleData = Weather.fromJson(response.data);
-        
-        weatherBox.add(singleData);
-
-        // allWeatherData.add(singleData);
+        await weatherBox.put(i, singleData);
       }
     }
-    print(allWeatherData);
+    await getAllSavedWeatherData();
   }
 
-  Future getCurrentWeather(String city) async {
-    Map<String, dynamic> queryParam = {
-      'access_key': API_ACCESS_KEY,
-      'query': city
-    };
-    final Response response =
-        await getResquest(url: 'current', queryParam: queryParam);
-    if (response.statusCode == 200) {
-      final Weather singleData = Weather.fromJson(response.data);
-      print(singleData.current);
-    }
-  }
 }
