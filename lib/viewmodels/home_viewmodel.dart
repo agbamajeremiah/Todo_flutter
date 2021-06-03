@@ -4,7 +4,7 @@ import 'package:crud_firebase/utils/api_request.dart';
 import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 
-class HomeViewModel extends BaseViewModel {
+ class HomeViewModel extends BaseViewModel {
   var weatherBox;
   List<String> cities = [
     'New york',
@@ -41,7 +41,7 @@ class HomeViewModel extends BaseViewModel {
       };
       final response =
           await getResquest(url: 'current', queryParam: queryParam);
-      if (response?.statusCode == 200) {
+      if (response?.statusCode == 200 && response?.data['success'] != false)  {
         final Weather singleData = Weather.fromJson(response.data);
         await weatherBox.put(i, singleData);
       }
